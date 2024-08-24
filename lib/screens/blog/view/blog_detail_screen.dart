@@ -43,7 +43,10 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
     return AppScaffold(
       child: SnapHelperWidget<BlogDetailResponse>(
         future: future,
-        initialData: cachedBlogDetail.firstWhere((element) => element?.$1 == widget.blogId.validate(), orElse: () => null)?.$2,
+        initialData: cachedBlogDetail
+            .firstWhere((element) => element?.$1 == widget.blogId.validate(),
+                orElse: () => null)
+            ?.$2,
         loadingWidget: BlogDetailShimmer(),
         onSuccess: (data) {
           return AnimatedScrollView(
@@ -58,7 +61,8 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(data.blogDetail!.title.validate(), style: boldTextStyle(size: 20)),
+                  Text(data.blogDetail!.title.validate(),
+                      style: boldTextStyle(size: 20)),
                   8.height,
                   Row(
                     children: [
@@ -70,9 +74,17 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(data.blogDetail!.authorName.validate(), style: primaryTextStyle(size: 14), maxLines: 1, overflow: TextOverflow.ellipsis),
-                          if (data.blogDetail!.publishDate.validate().isNotEmpty) 2.height,
-                          if (data.blogDetail!.publishDate.validate().isNotEmpty)
+                          Text(data.blogDetail!.authorName.validate(),
+                              style: primaryTextStyle(size: 14),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis),
+                          if (data.blogDetail!.publishDate
+                              .validate()
+                              .isNotEmpty)
+                            2.height,
+                          if (data.blogDetail!.publishDate
+                              .validate()
+                              .isNotEmpty)
                             Text(
                               "${data.blogDetail!.publishDate.validate()}",
                               style: secondaryTextStyle(size: 10),
@@ -101,7 +113,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                     ],
                   ),
                   16.height,
-                  Html(data: data.blogDetail!.description.validate())
+                  Html(data: data.blogDetail!.description.validate()),
                 ],
               ).paddingSymmetric(horizontal: 16),
             ],

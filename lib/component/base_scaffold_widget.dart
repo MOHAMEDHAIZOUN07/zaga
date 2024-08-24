@@ -28,7 +28,9 @@ class AppScaffold extends StatelessWidget {
     return Scaffold(
       appBar: appBarTitle != null
           ? AppBar(
-              title: Text(appBarTitle.validate(), style: boldTextStyle(color: Colors.white, size: APP_BAR_TEXT_SIZE)),
+              title: Text(appBarTitle.validate(),
+                  style: boldTextStyle(
+                      color: Colors.white, size: APP_BAR_TEXT_SIZE)),
               elevation: 0.0,
               backgroundColor: context.primaryColor,
               leading: context.canPop ? BackWidget() : null,

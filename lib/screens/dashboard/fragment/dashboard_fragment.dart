@@ -40,7 +40,10 @@ class _DashboardFragmentState extends State<DashboardFragment> {
   }
 
   void init() async {
-    future = userDashboard(isCurrentLocation: appStore.isCurrentLocation, lat: getDoubleAsync(LATITUDE), long: getDoubleAsync(LONGITUDE));
+    future = userDashboard(
+        isCurrentLocation: appStore.isCurrentLocation,
+        lat: getDoubleAsync(LATITUDE),
+        long: getDoubleAsync(LONGITUDE));
   }
 
   @override
@@ -103,19 +106,23 @@ class _DashboardFragmentState extends State<DashboardFragment> {
                       },
                     ),
                     30.height,
-                    PendingBookingComponent(upcomingConfirmedBooking: snap.upcomingData),
+                    PendingBookingComponent(
+                        upcomingConfirmedBooking: snap.upcomingData),
                     CategoryComponent(categoryList: snap.category.validate()),
                     16.height,
-                    FeaturedServiceListComponent(serviceList: snap.featuredServices.validate()),
+                    FeaturedServiceListComponent(
+                        serviceList: snap.featuredServices.validate()),
                     ServiceListComponent(serviceList: snap.service.validate()),
                     16.height,
-                    if (appConfigurationStore.jobRequestStatus) NewJobRequestComponent(),
+                    if (appConfigurationStore.jobRequestStatus)
+                      NewJobRequestComponent(),
                   ],
                 );
               });
             },
           ),
-          Observer(builder: (context) => LoaderWidget().visible(appStore.isLoading)),
+          Observer(
+              builder: (context) => LoaderWidget().visible(appStore.isLoading)),
         ],
       ),
     );
