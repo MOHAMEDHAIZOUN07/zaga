@@ -203,7 +203,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       finish(context);
       _handleLoginUsers();
     }).catchError((e) {
-      print('here');
       appStore.setLoading(false);
       toast(e.toString());
     });
