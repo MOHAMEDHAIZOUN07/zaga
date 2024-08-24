@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1092131483187",
+    "project_id": "zaga-7b250",
+    "storage_bucket": "zaga-7b250.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092131483187:android:b7cdfa16e7c454a44cbd46",
+        "android_client_info": {
+          "package_name": "com.zaga.maroc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1092131483187-hsgvk3276li502ud46n97ju8f28p0pm9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAENHrEXlpusf9EbrxinfAmnBiJMMPYrT4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1092131483187-hsgvk3276li502ud46n97ju8f28p0pm9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1092131483187-0ulu21lu3k6ge6c3a1ms2kk5ibf1tatf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.iqonic.zaga"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
