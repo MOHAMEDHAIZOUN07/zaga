@@ -400,7 +400,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen>
           floatingActionButton: InkWell(
             onTap: () async {
               await launchUrl(Uri.parse(
-                  'https://wa.me/212777179376/?text=مرحباً ! هل يمكنني شراء هدا المنتج "Product tittle"'));
+                  'https://wa.me/212777179376/?text=مرحباً ! هل يمكنني شراء هدا المنتج ${snap.data!.serviceDetail!.name ?? ''}'));
             },
             child: Container(
               width: 50,
