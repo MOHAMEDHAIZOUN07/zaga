@@ -417,21 +417,16 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen>
           ),
           bottomNavigationBar: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Positioned(
-              bottom: 16,
-              left: 16,
-              right: 16,
-              child: AppButton(
-                onTap: () {
-                  //Todo handle package selection
-                  bookNow(snap.data!);
-                },
-                color: context.primaryColor,
-                child: Text(language.lblBookNow,
-                    style: boldTextStyle(color: white)),
-                width: context.width(),
-                textColor: Colors.white,
-              ),
+            child: AppButton(
+              onTap: () {
+                //Todo handle package selection
+                bookNow(snap.data!);
+              },
+              color: context.primaryColor,
+              child:
+                  Text(language.lblBookNow, style: boldTextStyle(color: white)),
+              width: context.width(),
+              textColor: Colors.white,
             ),
           ),
         );
