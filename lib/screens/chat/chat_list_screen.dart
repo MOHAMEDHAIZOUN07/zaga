@@ -2,6 +2,7 @@ import 'package:booking_system_flutter/component/loader_widget.dart';
 import 'package:booking_system_flutter/main.dart';
 import 'package:booking_system_flutter/model/user_data_model.dart';
 import 'package:booking_system_flutter/screens/auth/sign_in_screen.dart';
+import 'package:booking_system_flutter/screens/auth/sign_up_screen.dart';
 import 'package:booking_system_flutter/screens/chat/widget/user_item_widget.dart';
 import 'package:booking_system_flutter/utils/constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -40,7 +41,8 @@ class _ChatListScreenState extends State<ChatListScreen> {
       appBarTitle: language.lblChat,
       child: Observer(builder: (context) {
         return SnapHelperWidget(
-          future: Future.value(FirebaseAuth.instance.currentUser != null && appStore.uid.isNotEmpty),
+          future: Future.value(FirebaseAuth.instance.currentUser != null &&
+              appStore.uid.isNotEmpty),
           onSuccess: (isLoggedIn) {
             if (!isLoggedIn) {
               return NoDataWidget(
@@ -48,7 +50,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
                 subTitle: language.NotConnectedWithChatServerMessage,
                 onRetry: () async {
                   if (!appStore.isLoggedIn) {
-                    SignInScreen().launch(context);
+                    SignUpScreen().launch(context);
                   } else {
                     appStore.setLoading(true);
                     await authService.verifyFirebaseUser().then((value) {
@@ -69,14 +71,17 @@ class _ChatListScreenState extends State<ChatListScreen> {
                 isLive: true,
                 shrinkWrap: true,
                 itemBuilder: (context, snap, index) {
-                  UserData contact = UserData.fromJson(snap[index].data() as Map<String, dynamic>);
+                  UserData contact = UserData.fromJson(
+                      snap[index].data() as Map<String, dynamic>);
                   return UserItemWidget(userUid: contact.uid.validate());
                 },
                 initialLoader: LoaderWidget(),
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 10),
+                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 10),
                 padding: EdgeInsets.only(left: 0, top: 8, right: 0, bottom: 0),
                 limit: PER_PAGE_CHAT_LIST_COUNT,
-                separatorBuilder: (_, i) => Divider(height: 0, indent: 82, color: context.dividerColor),
+                separatorBuilder: (_, i) =>
+                    Divider(height: 0, indent: 82, color: context.dividerColor),
                 viewType: ViewType.list,
                 onEmpty: NoDataWidget(
                   title: language.noConversation,
