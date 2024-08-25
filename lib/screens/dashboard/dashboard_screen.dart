@@ -1,6 +1,7 @@
 import 'package:booking_system_flutter/component/image_border_component.dart';
 import 'package:booking_system_flutter/main.dart';
 import 'package:booking_system_flutter/screens/auth/sign_in_screen.dart';
+import 'package:booking_system_flutter/screens/auth/sign_up_screen.dart';
 import 'package:booking_system_flutter/screens/category/category_screen.dart';
 import 'package:booking_system_flutter/screens/chat/chat_list_screen.dart';
 import 'package:booking_system_flutter/screens/dashboard/fragment/booking_fragment.dart';
@@ -160,14 +161,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
               }
             }),
             Observer(
-                builder: (context) => appStore.isLoggedIn
-                    ? BookingFragment()
-                    : SignInScreen(isFromDashboard: true)),
+                builder: (context) =>
+                    appStore.isLoggedIn ? BookingFragment() : SignUpScreen()),
             CategoryScreen(),
             Observer(
-                builder: (context) => appStore.isLoggedIn
-                    ? ChatListScreen()
-                    : SignInScreen(isFromDashboard: true)),
+                builder: (context) =>
+                    appStore.isLoggedIn ? ChatListScreen() : SignUpScreen()),
             ProfileFragment(),
           ][currentIndex],
         ),
