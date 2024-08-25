@@ -392,9 +392,9 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen>
           body: Stack(
             children: [
               buildBodyWidget(snap),
-              Observer(
-                  builder: (context) =>
-                      LoaderWidget().visible(appStore.isLoading)),
+              // Observer(
+              //     builder: (context) =>
+              //         LoaderWidget().visible(appStore.isLoading)),
             ],
           ),
           floatingActionButton: InkWell(
