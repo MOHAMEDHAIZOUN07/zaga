@@ -235,6 +235,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       authService.verifyFirebaseUser();
       TextInput.finishAutofillContext();
+      appStore.setLoading(false);
 
       onLoginSuccessRedirection();
     } catch (e) {
