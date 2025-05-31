@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TikTok Casino Roulette</title>
+    <title>TikTok Live Roulette</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
@@ -14,14 +12,13 @@
         }
 
         body {
-            font-family: 'Orbitron', monospace;
-            background: radial-gradient(circle at center, #0f0f23, #000);
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            overflow-x: hidden;
             position: relative;
         }
 
@@ -32,171 +29,103 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(circle at 20% 20%, rgba(255, 0, 80, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(37, 244, 238, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 60%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
-            animation: backgroundPulse 8s ease-in-out infinite;
-            z-index: -1;
-        }
-
-        @keyframes backgroundPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
-        }
-
-        .casino-lights {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(255, 0, 80, 0.05) 0%, transparent 70%);
             pointer-events: none;
-            z-index: -1;
-        }
-
-        .light {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #ffd700;
-            border-radius: 50%;
-            animation: twinkle 2s ease-in-out infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.5); }
         }
 
         .container {
             text-align: center;
             max-width: 900px;
-            padding: 20px;
-            position: relative;
+            padding: 30px;
         }
 
         .title {
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin-bottom: 2rem;
-            text-shadow: 
-                0 0 10px #ff0050,
-                0 0 20px #ff0050,
-                0 0 30px #ff0050,
-                0 0 40px #ff0050;
-            animation: neonFlicker 3s ease-in-out infinite;
-            background: linear-gradient(45deg, #ff0050, #25f4ee, #ffd700);
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #ff0050, #25f4ee);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        @keyframes neonFlicker {
-            0%, 100% { text-shadow: 0 0 10px #ff0050, 0 0 20px #ff0050, 0 0 30px #ff0050; }
-            50% { text-shadow: 0 0 20px #25f4ee, 0 0 30px #25f4ee, 0 0 40px #25f4ee; }
+            letter-spacing: 2px;
         }
 
         .wheel-container {
             position: relative;
+            width: 420px;
+            height: 420px;
+            margin: 0 auto 3rem;
+        }
+
+        .wheel-frame {
+            position: absolute;
+            top: -15px;
+            left: -15px;
             width: 450px;
             height: 450px;
-            margin: 0 auto 3rem;
-            perspective: 1000px;
-        }
-
-        .wheel-outer {
-            position: absolute;
-            top: -25px;
-            left: -25px;
-            width: 500px;
-            height: 500px;
             border-radius: 50%;
-            background: conic-gradient(
-                from 0deg,
-                #ffd700 0deg 30deg,
-                #ff0050 30deg 60deg,
-                #25f4ee 60deg 90deg,
-                #ffd700 90deg 120deg,
-                #ff0050 120deg 150deg,
-                #25f4ee 150deg 180deg,
-                #ffd700 180deg 210deg,
-                #ff0050 210deg 240deg,
-                #25f4ee 240deg 270deg,
-                #ffd700 270deg 300deg,
-                #ff0050 300deg 330deg,
-                #25f4ee 330deg 360deg
-            );
-            animation: outerSpin 20s linear infinite;
-            box-shadow: 
-                0 0 50px rgba(255, 215, 0, 0.5),
-                inset 0 0 50px rgba(255, 255, 255, 0.1);
+            background: linear-gradient(45deg, #ff0050, #25f4ee, #ff0050);
+            padding: 3px;
+            box-shadow: 0 0 40px rgba(255, 0, 80, 0.3);
         }
 
-        @keyframes outerSpin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .wheel-frame::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            right: 3px;
+            bottom: 3px;
+            background: #1a1a2e;
+            border-radius: 50%;
         }
 
         .wheel {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 12px solid #ffd700;
-            box-shadow: 
-                0 0 60px rgba(255, 215, 0, 0.8),
-                0 0 100px rgba(255, 0, 80, 0.4),
-                inset 0 0 30px rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
-            transition: transform 1s ease-out;
-            background: #1a1a2e;
+            transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background: #2a2a4e;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
         }
 
-        .wheel::before {
+        .wheel::after {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 40px;
-            height: 40px;
-            background: radial-gradient(circle, #ffd700, #ff0050);
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #ff0050, #25f4ee);
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            box-shadow: 0 0 15px rgba(255, 0, 80, 0.5);
             z-index: 100;
         }
 
         .pointer {
             position: absolute;
-            top: -40px;
+            top: -25px;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 25px solid transparent;
-            border-right: 25px solid transparent;
-            border-top: 50px solid #ffd700;
+            border-left: 18px solid transparent;
+            border-right: 18px solid transparent;
+            border-top: 35px solid #ffffff;
             z-index: 200;
-            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
-            animation: pointerGlow 2s ease-in-out infinite;
-        }
-
-        @keyframes pointerGlow {
-            0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)); }
-            50% { filter: drop-shadow(0 0 40px rgba(255, 215, 0, 1)); }
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
         }
 
         .controls {
-            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(15, 15, 35, 0.9));
+            background: rgba(26, 26, 46, 0.8);
             backdrop-filter: blur(20px);
-            border-radius: 25px;
-            padding: 3rem;
-            margin-bottom: 2rem;
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.5),
-                0 0 30px rgba(255, 215, 0, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .input-group {
@@ -204,126 +133,104 @@
         }
 
         .input-group input {
-            width: 350px;
-            padding: 15px 20px;
-            border: 2px solid #ffd700;
-            border-radius: 15px;
-            font-size: 1.1rem;
-            margin-right: 15px;
-            background: rgba(26, 26, 46, 0.8);
+            width: 320px;
+            padding: 14px 18px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-right: 12px;
+            background: rgba(255, 255, 255, 0.05);
             color: white;
-            font-family: 'Orbitron', monospace;
-            box-shadow: 
-                0 0 20px rgba(255, 215, 0, 0.3),
-                inset 0 0 10px rgba(255, 215, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
         }
 
         .input-group input:focus {
             outline: none;
-            box-shadow: 
-                0 0 30px rgba(255, 215, 0, 0.6),
-                inset 0 0 15px rgba(255, 215, 0, 0.2);
+            border-color: #ff0050;
+            box-shadow: 0 0 15px rgba(255, 0, 80, 0.2);
         }
 
         .btn {
-            padding: 15px 30px;
+            padding: 14px 28px;
             border: none;
-            border-radius: 15px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            text-transform: none;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #ff0050, #ff3366);
+            background: linear-gradient(135deg, #ff0050, #e6004a);
             color: white;
-            box-shadow: 
-                0 10px 20px rgba(255, 0, 80, 0.4),
-                0 0 30px rgba(255, 0, 80, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 0, 80, 0.3);
         }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, #ff3366, #ff0050);
-            transform: translateY(-3px);
-            box-shadow: 
-                0 15px 30px rgba(255, 0, 80, 0.6),
-                0 0 40px rgba(255, 0, 80, 0.5);
+            background: linear-gradient(135deg, #e6004a, #ff0050);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 0, 80, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.7;
+            transform: none;
+            cursor: not-allowed;
         }
 
         .btn-secondary {
-            background: linear-gradient(135deg, #25f4ee, #00d4aa);
-            color: #000;
-            box-shadow: 
-                0 10px 20px rgba(37, 244, 238, 0.4),
-                0 0 30px rgba(37, 244, 238, 0.3);
+            background: linear-gradient(135deg, #25f4ee, #20d9cc);
+            color: #1a1a2e;
+            box-shadow: 0 4px 15px rgba(37, 244, 238, 0.3);
         }
 
         .btn-secondary:hover {
-            background: linear-gradient(135deg, #00d4aa, #25f4ee);
-            transform: translateY(-3px);
-            box-shadow: 
-                0 15px 30px rgba(37, 244, 238, 0.6),
-                0 0 40px rgba(37, 244, 238, 0.5);
+            background: linear-gradient(135deg, #20d9cc, #25f4ee);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 244, 238, 0.4);
         }
 
         .participants {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 12px;
             justify-content: center;
             margin-bottom: 2rem;
-            max-height: 200px;
+            max-height: 180px;
             overflow-y: auto;
+            padding: 10px;
         }
 
         .participant {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 0, 80, 0.2));
-            padding: 12px 20px;
-            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 10px 16px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            border: 1px solid rgba(255, 215, 0, 0.5);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
-            animation: participantPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes participantPulse {
-            0%, 100% { box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2); }
-            50% { box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4); }
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-weight: 500;
         }
 
         .remove-btn {
-            background: linear-gradient(135deg, #ff0050, #cc003d);
+            background: #ff0050;
             color: white;
             border: none;
             border-radius: 50%;
-            width: 25px;
-            height: 25px;
+            width: 20px;
+            height: 20px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: bold;
-            box-shadow: 0 0 10px rgba(255, 0, 80, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .duration-selector {
@@ -331,38 +238,41 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 2rem;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 0, 80, 0.1));
-            padding: 20px;
-            border-radius: 20px;
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 18px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .duration-label {
-            color: #ffd700;
-            font-weight: bold;
-            margin-right: 20px;
-            font-size: 1.2rem;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            color: white;
+            font-weight: 600;
+            margin-right: 16px;
+            font-size: 1.1rem;
         }
 
         .duration-select {
-            padding: 15px 20px;
-            border-radius: 15px;
-            border: 2px solid #ffd700;
-            font-size: 1.1rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(15, 15, 35, 0.9));
-            color: #ffd700;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            font-size: 1rem;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
             cursor: pointer;
-            min-width: 160px;
-            font-family: 'Orbitron', monospace;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            min-width: 140px;
+            font-family: inherit;
         }
 
         .duration-select:focus {
             outline: none;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            border-color: #25f4ee;
+            box-shadow: 0 0 15px rgba(37, 244, 238, 0.2);
+        }
+
+        .duration-select option {
+            background: #1a1a2e;
+            color: white;
         }
 
         .winner-modal {
@@ -371,182 +281,113 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.85);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 2000;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px);
         }
 
         .modal-content {
-            background: linear-gradient(135deg, #ff0050, #25f4ee, #ffd700);
-            padding: 4rem;
-            border-radius: 30px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 3rem;
+            border-radius: 25px;
             text-align: center;
-            animation: winnerCelebration 1s ease-out;
+            animation: modalAppear 0.6s ease-out;
             box-shadow: 
-                0 0 100px rgba(255, 215, 0, 0.8),
-                0 0 200px rgba(255, 0, 80, 0.6);
-            position: relative;
-            overflow: hidden;
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 2px rgba(255, 0, 80, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .modal-content::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(
-                from 0deg,
-                transparent,
-                rgba(255, 255, 255, 0.3),
-                transparent,
-                rgba(255, 255, 255, 0.3),
-                transparent
-            );
-            animation: modalSpin 2s linear infinite;
-        }
-
-        .modal-content > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        @keyframes modalSpin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes winnerCelebration {
-            0% { transform: scale(0.3) rotate(-180deg); opacity: 0; }
-            50% { transform: scale(1.1) rotate(0deg); opacity: 1; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        @keyframes modalAppear {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .winner-text {
-            font-size: 4rem;
-            font-weight: 900;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ff0050, #25f4ee);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .winner-name {
+            font-size: 2.2rem;
             margin-bottom: 2rem;
-            text-shadow: 
-                0 0 20px rgba(0, 0, 0, 0.8),
-                0 0 40px rgba(255, 255, 255, 0.5);
-            animation: winnerTextPulse 1s ease-in-out infinite;
+            font-weight: 600;
+            color: white;
         }
 
-        @keyframes winnerTextPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        .spin-effect {
+            animation: smoothSpin var(--duration) cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
-        .fireworks {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1500;
-        }
-
-        .firework {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            animation: fireworkExplode 1s ease-out forwards;
-        }
-
-        @keyframes fireworkExplode {
-            0% {
-                opacity: 1;
-                transform: scale(0);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(2);
-            }
+        @keyframes smoothSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(var(--rotation)); }
         }
     </style>
 </head>
 <body>
-    <div class="casino-lights"></div>
-    
     <div class="container">
-        <h1 class="title">🎰 TIKTOK CASINO ROULETTE 🎰</h1>
+        <h1 class="title">TikTok Live Roulette</h1>
         
         <div class="wheel-container">
-            <div class="wheel-outer"></div>
+            <div class="wheel-frame"></div>
             <div class="pointer"></div>
             <div class="wheel" id="wheel"></div>
         </div>
 
         <div class="controls">
             <div class="input-group">
-                <input type="text" id="participantInput" placeholder="🎯 Enter participant name (e.g., @username)" />
-                <button class="btn btn-primary" onclick="addParticipant()">ADD PLAYER</button>
+                <input type="text" id="participantInput" placeholder="Enter participant name (e.g., @username)" />
+                <button class="btn btn-primary" onclick="addParticipant()">Add Player</button>
             </div>
             
             <div class="participants" id="participants"></div>
             
             <div class="duration-selector">
-                <label class="duration-label" for="spinDuration">⏱️ SPIN DURATION:</label>
+                <label class="duration-label" for="spinDuration">Spin Duration:</label>
                 <select id="spinDuration" class="duration-select">
-                    <option value="3">⚡ 3 seconds</option>
-                    <option value="5" selected>🔥 5 seconds</option>
-                    <option value="8">💫 8 seconds</option>
-                    <option value="10">⭐ 10 seconds</option>
-                    <option value="15">🌟 15 seconds</option>
-                    <option value="20">💥 20 seconds</option>
-                    <option value="25">🚀 25 seconds</option>
-                    <option value="30">🎆 30 seconds</option>
-                    <option value="35">🎇 35 seconds</option>
-                    <option value="40">💎 40 seconds</option>
-                    <option value="45">👑 45 seconds</option>
-                    <option value="50">🏆 50 seconds</option>
-                    <option value="60">🎖️ 60 seconds</option>
+                    <option value="3">3 seconds</option>
+                    <option value="5" selected>5 seconds</option>
+                    <option value="8">8 seconds</option>
+                    <option value="10">10 seconds</option>
+                    <option value="15">15 seconds</option>
+                    <option value="20">20 seconds</option>
+                    <option value="25">25 seconds</option>
+                    <option value="30">30 seconds</option>
+                    <option value="35">35 seconds</option>
+                    <option value="40">40 seconds</option>
+                    <option value="45">45 seconds</option>
+                    <option value="50">50 seconds</option>
+                    <option value="60">60 seconds</option>
                 </select>
             </div>
             
             <div class="input-group">
-                <button class="btn btn-primary" id="spinBtn" onclick="spinWheel()">🎲 SPIN THE WHEEL!</button>
-                <button class="btn btn-secondary" onclick="clearAll()">🗑️ CLEAR ALL</button>
+                <button class="btn btn-primary" id="spinBtn" onclick="spinWheel()">Spin the Wheel</button>
+                <button class="btn btn-secondary" onclick="clearAll()">Clear All</button>
             </div>
         </div>
     </div>
 
     <div class="winner-modal" id="winnerModal">
-        <div class="fireworks" id="fireworks"></div>
         <div class="modal-content">
-            <div class="winner-text">🏆 JACKPOT WINNER! 🏆</div>
-            <div id="winnerName" style="font-size: 2.5rem; margin-bottom: 2rem; font-weight: bold; text-shadow: 0 0 20px rgba(0,0,0,0.8);"></div>
-            <button class="btn btn-primary" onclick="closeModal()">COLLECT PRIZE</button>
+            <div class="winner-text">Winner!</div>
+            <div class="winner-name" id="winnerName"></div>
+            <button class="btn btn-primary" onclick="closeModal()">Close</button>
         </div>
     </div>
 
     <script>
         let participants = [];
         let isSpinning = false;
-
-        // Create casino lights
-        function createCasinoLights() {
-            const lightsContainer = document.querySelector('.casino-lights');
-            for (let i = 0; i < 50; i++) {
-                const light = document.createElement('div');
-                light.className = 'light';
-                light.style.left = Math.random() * 100 + '%';
-                light.style.top = Math.random() * 100 + '%';
-                light.style.animationDelay = Math.random() * 2 + 's';
-                light.style.animationDuration = (Math.random() * 3 + 1) + 's';
-                lightsContainer.appendChild(light);
-            }
-        }
 
         function addParticipant() {
             const input = document.getElementById('participantInput');
@@ -576,7 +417,7 @@
             const container = document.getElementById('participants');
             container.innerHTML = participants.map(name => `
                 <div class="participant">
-                    <span style="font-weight: bold;">🎮 ${name}</span>
+                    ${name}
                     <button class="remove-btn" onclick="removeParticipant('${name}')">×</button>
                 </div>
             `).join('');
@@ -585,12 +426,16 @@
         function updateWheel() {
             const wheel = document.getElementById('wheel');
             if (participants.length === 0) {
-                wheel.style.background = 'radial-gradient(circle, #1a1a2e, #0f0f23)';
-                wheel.innerHTML = '<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem; opacity: 0.5;">Add Players</div>';
+                wheel.style.background = 'radial-gradient(circle, #2a2a4e, #1a1a2e)';
+                wheel.innerHTML = '<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.2rem; opacity: 0.6; font-weight: 500;">Add participants to start</div>';
                 return;
             }
 
-            const colors = ['#ff0050', '#25f4ee', '#ffd700', '#ff6b35', '#4ecdc4', '#45b7d1', '#f9ca24', '#a55eea'];
+            const colors = [
+                '#ff0050', '#25f4ee', '#ffa500', '#9b59b6', 
+                '#2ecc71', '#e74c3c', '#f39c12', '#3498db',
+                '#1abc9c', '#e67e22', '#34495e', '#95a5a6'
+            ];
             const segmentAngle = 360 / participants.length;
             
             let gradient = 'conic-gradient(';
@@ -605,10 +450,9 @@
             
             wheel.style.background = gradient;
             
-            // Add participant names with advanced styling
             wheel.innerHTML = participants.map((name, index) => {
                 const angle = (index * segmentAngle) + (segmentAngle / 2);
-                const radius = 140;
+                const radius = 130;
                 const x = Math.cos((angle - 90) * Math.PI / 180) * radius;
                 const y = Math.sin((angle - 90) * Math.PI / 180) * radius;
                 
@@ -619,41 +463,17 @@
                         left: calc(50% + ${x}px);
                         transform: translate(-50%, -50%) rotate(${angle > 90 && angle < 270 ? angle + 180 : angle}deg);
                         color: white;
-                        font-weight: 900;
+                        font-weight: 600;
                         font-size: 14px;
-                        text-shadow: 
-                            0 0 10px rgba(0,0,0,0.9),
-                            0 0 20px rgba(0,0,0,0.7),
-                            0 0 30px rgba(255,255,255,0.3);
+                        text-shadow: 0 2px 4px rgba(0,0,0,0.8);
                         white-space: nowrap;
                         pointer-events: none;
                         z-index: 50;
                         text-align: center;
                         line-height: 1;
-                        font-family: 'Orbitron', monospace;
-                        letter-spacing: 1px;
-                    ">🎯 ${name}</div>
+                    ">${name}</div>
                 `;
             }).join('');
-        }
-
-        function createFireworks() {
-            const fireworksContainer = document.getElementById('fireworks');
-            fireworksContainer.innerHTML = '';
-            
-            for (let i = 0; i < 20; i++) {
-                setTimeout(() => {
-                    const firework = document.createElement('div');
-                    firework.className = 'firework';
-                    firework.style.left = Math.random() * 100 + '%';
-                    firework.style.top = Math.random() * 100 + '%';
-                    firework.style.background = ['#ff0050', '#25f4ee', '#ffd700', '#ff6b35'][Math.floor(Math.random() * 4)];
-                    firework.style.boxShadow = `0 0 20px ${firework.style.background}`;
-                    fireworksContainer.appendChild(firework);
-                    
-                    setTimeout(() => firework.remove(), 1000);
-                }, i * 100);
-            }
         }
 
         function spinWheel() {
@@ -664,26 +484,24 @@
             const spinBtn = document.getElementById('spinBtn');
             const duration = parseInt(document.getElementById('spinDuration').value) * 1000;
             
-            spinBtn.textContent = '🎰 SPINNING...';
+            spinBtn.textContent = 'Spinning...';
             spinBtn.disabled = true;
             
-            // Calculate winner and rotation
             const winnerIndex = Math.floor(Math.random() * participants.length);
             const segmentAngle = 360 / participants.length;
             const winnerAngle = (winnerIndex * segmentAngle) + (segmentAngle / 2);
-            const baseRotations = Math.floor(duration / 1000) * 3;
-            const totalRotation = (baseRotations * 360) + (360 - winnerAngle) + Math.random() * 30 - 15;
+            const baseRotations = Math.floor(duration / 1000) * 2.5;
+            const totalRotation = (baseRotations * 360) + (360 - winnerAngle) + Math.random() * 20 - 10;
             
-            // Advanced easing with multiple phases
-            wheel.style.transition = `transform ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
-            wheel.style.transform = `rotate(${totalRotation}deg)`;
+            wheel.style.setProperty('--duration', duration + 'ms');
+            wheel.style.setProperty('--rotation', totalRotation + 'deg');
+            wheel.classList.add('spin-effect');
             
-            // Countdown with effects
             let timeLeft = Math.ceil(duration / 1000);
             const countdown = setInterval(() => {
                 timeLeft--;
                 if (timeLeft > 0) {
-                    spinBtn.textContent = `🎰 SPINNING... ${timeLeft}s`;
+                    spinBtn.textContent = `Spinning... ${timeLeft}s`;
                 } else {
                     clearInterval(countdown);
                 }
@@ -693,8 +511,8 @@
                 const winner = participants[winnerIndex];
                 showWinner(winner);
                 
-                wheel.style.transition = '';
-                spinBtn.textContent = '🎲 SPIN THE WHEEL!';
+                wheel.classList.remove('spin-effect');
+                spinBtn.textContent = 'Spin the Wheel';
                 spinBtn.disabled = false;
                 isSpinning = false;
                 clearInterval(countdown);
@@ -702,25 +520,20 @@
         }
 
         function showWinner(winner) {
-            document.getElementById('winnerName').textContent = `🎯 ${winner}`;
+            document.getElementById('winnerName').textContent = winner;
             document.getElementById('winnerModal').style.display = 'flex';
-            createFireworks();
         }
 
         function closeModal() {
             document.getElementById('winnerModal').style.display = 'none';
-            document.getElementById('fireworks').innerHTML = '';
         }
 
-        // Enter key support
         document.getElementById('participantInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 addParticipant();
             }
         });
 
-        // Initialize
-        createCasinoLights();
         updateWheel();
     </script>
 </body>
