@@ -13,24 +13,155 @@
 
         body {
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: 
+                radial-gradient(ellipse at top, rgba(138, 43, 226, 0.3), transparent 50%),
+                radial-gradient(ellipse at bottom, rgba(255, 215, 0, 0.2), transparent 50%),
+                linear-gradient(135deg, #2d1b69 0%, #11101d 30%, #0f0c29 70%, #24243e 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             position: relative;
+            overflow: hidden;
         }
 
-        body::before {
-            content: '';
+        .casino-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(ellipse at center, rgba(255, 0, 80, 0.05) 0%, transparent 70%);
             pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-coins {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .coin {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle at 30% 30%, #ffd700, #b8860b, #ffd700);
+            border-radius: 50%;
+            border: 2px solid #ffed4e;
+            box-shadow: 
+                0 0 20px rgba(255, 215, 0, 0.6),
+                inset 0 0 10px rgba(255, 255, 255, 0.3);
+            animation: float 6s ease-in-out infinite, rotate 3s linear infinite;
+        }
+
+        .coin::before {
+            content: '$';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #8b4513;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) translateX(0px) rotateY(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-50px) translateX(50px) rotateY(360deg); opacity: 0; }
+        }
+
+        @keyframes rotate {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+
+        .sparkles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #fff, #ffd700);
+            border-radius: 50%;
+            animation: sparkle 3s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .light-rays {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ray {
+            position: absolute;
+            width: 2px;
+            height: 200px;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                rgba(255, 215, 0, 0.3) 20%, 
+                rgba(255, 215, 0, 0.6) 50%, 
+                rgba(255, 215, 0, 0.3) 80%, 
+                transparent 100%);
+            transform-origin: bottom center;
+            animation: rayRotate 8s linear infinite;
+        }
+
+        @keyframes rayRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .treasure-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .gem {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #9b59b6, #8e44ad, #663399);
+            border-radius: 50% 10px 50% 10px;
+            transform: rotate(45deg);
+            animation: gemFloat 4s ease-in-out infinite;
+            box-shadow: 0 0 15px rgba(155, 89, 182, 0.6);
+        }
+
+        @keyframes gemFloat {
+            0%, 100% { transform: rotate(45deg) translateY(0px); }
+            50% { transform: rotate(45deg) translateY(-20px); }
+        }
+
+        .golden-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #ffd700, #ffed4e);
+            border-radius: 50%;
+            animation: particleFloat 5s ease-in-out infinite;
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+        }
+
+        @keyframes particleFloat {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            20% { opacity: 1; transform: translateY(80vh) scale(1); }
+            80% { opacity: 1; transform: translateY(20vh) scale(1); }
+            100% { opacity: 0; transform: translateY(0vh) scale(0); }
         }
 
         .container {
@@ -334,6 +465,13 @@
     </style>
 </head>
 <body>
+    <div class="casino-background">
+        <div class="floating-coins" id="coins"></div>
+        <div class="sparkles" id="sparkles"></div>
+        <div class="light-rays" id="rays"></div>
+        <div class="treasure-elements" id="treasures"></div>
+    </div>
+    
     <div class="container">
         <h1 class="title">TikTok Live Roulette</h1>
         
@@ -534,6 +672,65 @@
             }
         });
 
+        // Create animated casino background
+        function createCasinoBackground() {
+            // Create floating coins
+            const coinsContainer = document.getElementById('coins');
+            for (let i = 0; i < 15; i++) {
+                const coin = document.createElement('div');
+                coin.className = 'coin';
+                coin.style.left = Math.random() * 100 + '%';
+                coin.style.animationDelay = Math.random() * 6 + 's';
+                coin.style.animationDuration = (6 + Math.random() * 4) + 's';
+                coinsContainer.appendChild(coin);
+            }
+
+            // Create sparkles
+            const sparklesContainer = document.getElementById('sparkles');
+            for (let i = 0; i < 40; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                sparkle.style.animationDuration = (2 + Math.random() * 2) + 's';
+                sparklesContainer.appendChild(sparkle);
+            }
+
+            // Create light rays
+            const raysContainer = document.getElementById('rays');
+            for (let i = 0; i < 8; i++) {
+                const ray = document.createElement('div');
+                ray.className = 'ray';
+                ray.style.left = Math.random() * 100 + '%';
+                ray.style.top = Math.random() * 100 + '%';
+                ray.style.animationDelay = Math.random() * 8 + 's';
+                ray.style.transform = `rotate(${Math.random() * 360}deg)`;
+                raysContainer.appendChild(ray);
+            }
+
+            // Create treasure elements (gems and particles)
+            const treasuresContainer = document.getElementById('treasures');
+            for (let i = 0; i < 12; i++) {
+                const gem = document.createElement('div');
+                gem.className = 'gem';
+                gem.style.left = Math.random() * 100 + '%';
+                gem.style.top = Math.random() * 100 + '%';
+                gem.style.animationDelay = Math.random() * 4 + 's';
+                treasuresContainer.appendChild(gem);
+            }
+
+            for (let i = 0; i < 25; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'golden-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.animationDuration = (4 + Math.random() * 3) + 's';
+                treasuresContainer.appendChild(particle);
+            }
+        }
+
+        createCasinoBackground();
         updateWheel();
     </script>
 </body>
