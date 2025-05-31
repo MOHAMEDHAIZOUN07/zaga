@@ -262,6 +262,7 @@
             const wheel = document.getElementById('wheel');
             if (participants.length === 0) {
                 wheel.style.background = 'conic-gradient(#666 0deg 360deg)';
+                wheel.innerHTML = '';
                 return;
             }
 
@@ -279,6 +280,29 @@
             gradient += ')';
             
             wheel.style.background = gradient;
+            
+            // Add participant names as text overlays
+            wheel.innerHTML = participants.map((name, index) => {
+                const angle = (index * segmentAngle) + (segmentAngle / 2);
+                const radius = 140; // Distance from center
+                const x = Math.cos((angle - 90) * Math.PI / 180) * radius;
+                const y = Math.sin((angle - 90) * Math.PI / 180) * radius;
+                
+                return `
+                    <div style="
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${angle}deg);
+                        color: white;
+                        font-weight: bold;
+                        font-size: 14px;
+                        text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+                        white-space: nowrap;
+                        pointer-events: none;
+                    ">${name}</div>
+                `;
+            }).join('');
         }
 
         function spinWheel() {
