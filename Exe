@@ -1,9 +1,1 @@
-https://drive.google.com/file/d/15lPA85K8ob3ckGwJdA-nPQo86--rJBy9/view
-
-
-
-@echo off
-title TikTok Live Roulette
-cd /d "%~dp0"
-npm start
-pause
+https://drive.google.com/file/d/1GHuyOsFGtl1S8SsRInlPlHjlbSqF4yL7/view
