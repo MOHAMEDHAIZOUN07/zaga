@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Live Roulette</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff0050, #25f4ee);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 0 auto 2rem;
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 8px solid #fff;
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            transition: transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .wheel.spinning {
+            animation: spin 2s linear;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(720deg); }
+        }
+
+        .pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 40px solid #fff;
+            z-index: 10;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .controls {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group input {
+            width: 300px;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-right: 10px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #ff0050;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #cc003d;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #25f4ee;
+            color: #000;
+        }
+
+        .btn-secondary:hover {
+            background: #1bc4ba;
+            transform: translateY(-2px);
+        }
+
+        .participants {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .participant {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remove-btn {
+            background: #ff0050;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .winner-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #ff0050, #25f4ee);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            animation: celebration 0.5s ease-out;
+        }
+
+        @keyframes celebration {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .winner-text {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🎯 TikTok Live Roulette 🎯</h1>
+        
+        <div class="wheel-container">
+            <div class="pointer"></div>
+            <div class="wheel" id="wheel"></div>
+        </div>
+
+        <div class="controls">
+            <div class="input-group">
+                <input type="text" id="participantInput" placeholder="Enter participant name (e.g., @username)" />
+                <button class="btn btn-primary" onclick="addParticipant()">Add</button>
+            </div>
+            
+            <div class="participants" id="participants"></div>
+            
+            <div class="input-group">
+                <button class="btn btn-primary" id="spinBtn" onclick="spinWheel()">🎲 SPIN THE WHEEL!</button>
+                <button class="btn btn-secondary" onclick="clearAll()">Clear All</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="winner-modal" id="winnerModal">
+        <div class="modal-content">
+            <div class="winner-text">🎉 WINNER! 🎉</div>
+            <div id="winnerName" style="font-size: 2rem; margin-bottom: 2rem;"></div>
+            <button class="btn btn-primary" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        let participants = [];
+        let isSpinning = false;
+
+        function addParticipant() {
+            const input = document.getElementById('participantInput');
+            const name = input.value.trim();
+            
+            if (name && !participants.includes(name)) {
+                participants.push(name);
+                input.value = '';
+                updateParticipants();
+                updateWheel();
+            }
+        }
+
+        function removeParticipant(name) {
+            participants = participants.filter(p => p !== name);
+            updateParticipants();
+            updateWheel();
+        }
+
+        function clearAll() {
+            participants = [];
+            updateParticipants();
+            updateWheel();
+        }
+
+        function updateParticipants() {
+            const container = document.getElementById('participants');
+            container.innerHTML = participants.map(name => `
+                <div class="participant">
+                    ${name}
+                    <button class="remove-btn" onclick="removeParticipant('${name}')">×</button>
+                </div>
+            `).join('');
+        }
+
+        function updateWheel() {
+            const wheel = document.getElementById('wheel');
+            if (participants.length === 0) {
+                wheel.style.background = 'conic-gradient(#666 0deg 360deg)';
+                return;
+            }
+
+            const colors = ['#ff0050', '#25f4ee', '#ff6b35', '#4ecdc4', '#45b7d1', '#f9ca24'];
+            const segmentAngle = 360 / participants.length;
+            
+            let gradient = 'conic-gradient(';
+            participants.forEach((_, index) => {
+                const startAngle = index * segmentAngle;
+                const endAngle = (index + 1) * segmentAngle;
+                const color = colors[index % colors.length];
+                gradient += `${color} ${startAngle}deg ${endAngle}deg`;
+                if (index < participants.length - 1) gradient += ', ';
+            });
+            gradient += ')';
+            
+            wheel.style.background = gradient;
+        }
+
+        function spinWheel() {
+            if (participants.length === 0 || isSpinning) return;
+            
+            isSpinning = true;
+            const wheel = document.getElementById('wheel');
+            const spinBtn = document.getElementById('spinBtn');
+            
+            spinBtn.textContent = 'SPINNING...';
+            spinBtn.disabled = true;
+            
+            wheel.classList.add('spinning');
+            
+            setTimeout(() => {
+                const winner = participants[Math.floor(Math.random() * participants.length)];
+                showWinner(winner);
+                
+                wheel.classList.remove('spinning');
+                spinBtn.textContent = '🎲 SPIN THE WHEEL!';
+                spinBtn.disabled = false;
+                isSpinning = false;
+            }, 2000);
+        }
+
+        function showWinner(winner) {
+            document.getElementById('winnerName').textContent = winner;
+            document.getElementById('winnerModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('winnerModal').style.display = 'none';
+        }
+
+        // Enter key support
+        document.getElementById('participantInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addParticipant();
+            }
+        });
+
+        // Initialize
+        updateWheel();
+    </script>
+</body>
+</html>
